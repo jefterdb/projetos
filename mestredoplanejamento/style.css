@@ -1,0 +1,94 @@
+* {
+    margin: 0px;
+	padding: 0px;
+	box-sizing: border-box; /*Faz com que os valores contem com a borda*/
+	-webkit-font-smoothing:antialiased; /*Faz com que os textos fiquemais legíveis*/
+	-moz-osx-font-smoothing: grayscale; /*Faz com que os textos fiquemais legíveis na mozila e safari etc*/
+}
+
+:root {
+	font-size: 62.5%; /*Faz com que o tamanho do texto fique 1rem = 10px*/
+}
+
+.b1 {
+    background-image: url(/projetos/mestredoplanejamento/imgs/BG-bloco-1.webp);
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.logo-b1 {
+    display: flex;
+    position: relative;
+    width: 20%;
+    height: auto;
+    padding: 50px 0px;
+    align-self: center;
+}
+
+h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: 45px;
+}
+
+h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: 35px;
+}
+
+h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 27px;
+}
+
+p {
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+}
+
+ul {
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    list-style-position: inside;
+    list-style-image: url(/projetos/mestredoplanejamento/imgs/check.svg);
+    line-height-step: 10px;
+}
+
+.b1 h1 {
+    color: #ffffff;
+    text-align: center;
+    align-self: center;
+    width: 70%;
+    padding-bottom: 50px;
+}
+
+.b1 p {
+    color: #ffffff;
+    text-align: center;
+    align-self: center;
+    width: 70%;
+}
+
+.b2 {
+    background-image: url(/projetos/mestredoplanejamento/imgs/BG-bloco-2.webp);
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.b2-interno {
+    display: flex;
+    flex-direction: row;
+}
+
+.video {
+    align-self: center;
+    padding-top: 50px;
+    padding-bottom: 70px;
+    border-radius: 20px;
+}
+
