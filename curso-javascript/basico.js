@@ -129,3 +129,302 @@ if (validacao) {
 } else {
     console.log(`Acesso negado`);
 }
+
+
+
+//Arrow Function
+/*
+function somar (x, y){
+    return x + y;
+}
+console.log(somar(10,5));
+*/
+
+//Crio como se fosse uma variável. Acima é como faria de modo padrão, abaixo com arrow function.
+/*
+const somar = (x, y) => x + y; //aqui é quando eu tenho apenas uma linha
+console.log(somar(10,5));
+*/
+
+//Dá pra simplificar ainda mais
+/*
+function sobrenome (sob) {
+    return 'Bonieke' + sob;
+}
+console.log(sobrenome('Lacerda'));
+*/
+const sobrenome = sob => 'Bonieke' + sob;
+console.log(sobrenome('Lacerda'));
+//Abaixo mais exemplos de como posso fazer a mesma coisa que essas linhas acima
+/*
+Modo 1
+const sobrenome = (sob) => 'Bonieke' + sob;
+
+Modo 2
+const sobrenome = (sob) => {
+    return 'Bonieke' + sob;
+} 
+
+Modo 3
+const sobrenome = (sob) => {
+    let nomeCompleto = 'Bonieke' + sob;
+    return nomeCompleto
+} 
+*/
+
+
+
+
+
+//Variáveis dentro de funções
+/*
+function add() {
+    let count = 0;
+    count++; //Isso aqui é como 1+1, poderia ser declarado como count = count + 1 ou count+=1
+}
+
+add();
+add();
+
+console.log(count);
+*/
+//Aqui não vai ler porque eu criei a variável dentro da função.
+
+//Vamos para outro cenário
+function add() {
+    count++;
+}
+
+let count = 0; //Criei fora da função
+
+add();
+add();
+
+console.log(count);
+
+//Se eu crio uma variável dentro, não posso usar ela fora da função, mas se eu crio a variável fora da função eu posso usar ela dentro da função.
+
+//Variável de escopo global e variável de escopo local (dentro de fora da função)
+//Se eu criar uma variável global e uma local com o mesmo nome, a função vai dar preferência para a variável local.
+
+
+
+
+//Funções dentro de funções
+/*
+function square(x) {
+    return x * x;
+}
+//Vai somar a raiz quadrada de dois números
+function addSquare (a, b) {
+    let sqrA = square(a);
+    let sqrB = square(b);
+    return sqrA + sqrB;
+}
+
+console.log(addSquare(2, 3));
+*/
+
+//Posso fazer com que a variável square fique dentro de addSquare
+
+function addSquare (a, b) {
+    function square(x) {
+        return x * x;
+    }
+
+    let sqrA = square(a);
+    let sqrB = square(b);
+    return sqrA + sqrB;
+}
+
+console.log(addSquare(2, 3));
+
+//Função dentro de função posso usar arrow function como abaixo
+/*
+function addSquare (a, b) {
+    const square = (x) => {
+        return x * x;
+    }
+
+    let sqrA = square(a);
+    let sqrB = square(b);
+    return sqrA + sqrB;
+}
+
+console.log(addSquare(2, 3));
+*/
+
+
+
+//Introdução a Array
+let color = 'blue' //armazeno uma cor
+
+let colors = ['blue', 'red', 'green'] //Posso armazenar número, string, bolean, o que eu quiser
+
+console.log(colors[1]); //Todo array começa pelo 0, ou seja, o 1 é o red e o blue é 0
+
+//Posso ter array dentro de array
+let lista2 = ['teste', [xx2, yy2]];
+console.log(lista2[1][1]); //Aqui eu pego um array dentro de outro, no caso aqui vai acessar o yy
+
+
+
+//Operações básicas de array
+let ingredientes = [
+    'agua',
+    'ovo',
+    'corante',
+    'sal'
+]
+
+//ingredientes[5] = 'cebola';
+//Estou dizendo que o item 5 recebe a cebola, mas neste caso vai dar erro, o correto é usar o push como abaixo.
+ingredientes.push('cebola'); //uso a função push. Poderia deixar vazio e usado o push
+ingredientes.pop(); //remove o último item do array
+ingredientes.shift(); //remove o primeiro item do array
+
+console.log('Total de ingredientes: ${ingredientes.length}'); //o length semnpre retorna número
+
+//Exercícios
+let carros = ['BMW', 'Ferrari', 'Mercedes'];
+let x1 = 1;
+
+console.log('1. ' + carros[x1]);
+
+
+//O que são objetos?
+//Similar ao array, tem o mesmo princípio
+let nomenclatura = 'Jef';
+let nomenclaturas = ['Jeff', 'Ev']; //assim eu coloco os arrays
+//Para objetos o síbolo é {}
+let personagem = {
+    //Preciso por o nome da chave e o valor, mas não é um número
+    nome: 'Jeff', //Propriedade e valor
+    idade: 20, //Propriedade e valor
+    pais: 'Brasil', //Propriedade e valor
+    caracteristicas: {
+        cabelo: 'branco',
+        olhos: ['preto', 'azul'], //Posso por um array dentro de um objeto
+        altura: 1.72,
+        peso: 56
+    }
+}
+
+//console.log(personagem.nome); Posso usar mais de uma propriedade fazendo como abaixo
+console.log(`${personagem.nome} tem ${personagem.idade} anos`);
+console.log(`${personagem.caracteristicas.cabelo} tem ${personagem.idade} anos`);
+console.log(`${personagem.caracteristicas.olhos[1]} tem ${personagem.idade} anos`);
+
+
+//Array é para lista de coisas, objeto é para grupo de informações.
+
+
+
+//Acessando e alterando objetos
+//Vou usar o código anterior de personagem
+
+personagem.nome //Assim eu acesso
+personagem.nome = 'Pedro'; //assim eu defino
+
+personagem.caracteristicas.peso += 5; //Estou alterando, está adicioando 5 kg
+
+personagem.caracteristicas.olhos.push('verde'); //Aqui adiciono no array dentro do objeto
+
+
+//Outro exemplo
+let persongem2 = {
+    nome: 'João',
+    idade: 30,
+    carros: [
+        {modelo: 'Fiat', cor: 'preto'}, //Posso ter um objeto dentro do array
+        {modelo: 'Ferrari', cor: 'vermelha'}
+    ]
+}
+
+console.log(personagem.carros[0].modelo);
+
+
+
+
+//Função dentro de objeto
+let pessoinha = {
+    nome: 'Jef',
+    sobrenome: 'DB',
+    idade: 20,
+    nomeCompletasso: function() {
+        return `${this.nome} ${this.sobrenome}`; //This se refere ao próprio objeto, ao item, acessa o próprio objeto
+    }
+}
+
+console.log(pessoa.nomeCompletasso()); //com o () após o nome da função ele retorna a função, não tem como acessar ao this do objeto se usar um arrow function
+
+
+
+
+//O loop for
+//Para executar um código várias vezes
+
+for(let n = 0; n < 10; n++) { //tenho que por o inicio do contador, a condicional para o código continuar executando, depois de definir e de por a condição ele executa o terceiro item. 
+    console.log('Frase qualquer' + n); //vai executar 10 vezes e vai por os números
+}
+
+
+
+
+//Dando loop em arrays
+let listaCores = ['preto', 'branco', 'azul', 'vermelho'];
+
+for(let nCor = 0; nCor < listaCores.length; nCor++) { //o listaCores.length vai puxar a quantidade de itens, mesmo que eu adicione mais pelo push
+    console.log(listaCores[nCor]);
+}
+
+//Tem forma mais fácil de trabalhar com o for
+
+for(let i in listaCores) { //crio a variável i, o i vai ser a chave aqui
+    console.log(listaCores[i]); //um ahora o i vai ser 0, depois 1, depois 2 e por aí em diante.
+}
+
+//Outro modo de usar o for
+for(let listaCor of listaCores) { //aqui o let of está se referindo ao valor
+    console.log(listaCor);
+}
+
+//Exemplo com objeto
+
+let coresListadas = [
+    {nome: 'azul', qt: 10},
+    {nome: 'amarelo', qt: 13},
+    {nome: 'vermelho', qt: 14},
+];
+
+/*
+for (let coresListadasfinal of coresListadas) {
+    console.log(`Nome: ${coresListadasfinal.nome} - ${coresListadasfinal.qt}`);
+}
+*/
+
+//Também posso usar assim
+for(let i in coresListadas) {
+    console.log(coresListadas[i].nome); //o item do array é um objeto, aí coloco o ponto para acessar ele
+}
+
+
+//Posso transformar os nomes em maiúsculas com o toUpperCase
+
+for(let i in coresListadas) {
+    coresListadas[i].nome = coresListadas[i].nome.toUpperCase();
+    console.log(coresListadas[i].nome);
+}
+
+//Uso o loop para acessar ou alterar informações
+
+
+
+
+//O loop while
+let numero = 0;
+
+while (numero < 10) {
+    console.log (`O número da vez é ${numero}`);
+    numero++;
+}
