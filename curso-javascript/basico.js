@@ -102,6 +102,7 @@ function calcularImovel (metragem, quartos) {
     return preco;
 }
 
+
 let metragem = 123;
 let quartos = 3;
 let preco = calcularImovel(metragem, quartos);
