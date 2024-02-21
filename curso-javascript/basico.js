@@ -381,7 +381,7 @@ for(let nCor = 0; nCor < listaCores.length; nCor++) { //o listaCores.length vai 
 //Tem forma mais fácil de trabalhar com o for
 
 for(let i in listaCores) { //crio a variável i, o i vai ser a chave aqui
-    console.log(listaCores[i]); //um ahora o i vai ser 0, depois 1, depois 2 e por aí em diante.
+    console.log(listaCores[i]); //uma hora o i vai ser 0, depois 1, depois 2 e por aí em diante.
 }
 
 //Outro modo de usar o for

@@ -1,5 +1,5 @@
-function nomesCompletos(x, y) {
-    return `${x} ${y}`
+let cores = ['amarelo', 'azul', 'verde'];
+
+for (let coresFinal = 0; < cores.length; coresFinal++){
+    console.log(cores[coresFinal])
 }
-let completo = nomesCompletos("João", "Silva");
-console.log('Completo '+ completo);
