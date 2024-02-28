@@ -3,7 +3,7 @@ from googleapiclient.discovery import build
 
 # Configurações da API
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
-SERVICE_ACCOUNT_FILE = r'C:\\Users\\jefter.barony\\OneDrive - Adventistas\\Base de dados Relatório\\chave-servico-relatorio-midia.json'
+SERVICE_ACCOUNT_FILE = 'C:\Users\jefter.barony\Downloads\chave-servico-relatorio-midia.json'
 
 credentials = Credentials.from_service_account_file(
         SERVICE_ACCOUNT_FILE, scopes=SCOPES)
