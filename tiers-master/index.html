@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset='utf-8'/>
+    <title>TierMaker</title>
+    <link rel='stylesheet' href='style.css'/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <script src='tiers.js' async></script>
+  </head>
+  <body>
+    <div class='title'>
+        <label class='title-label' for='title-input'>Nomeie aqui a sua TierList</label>
+        <input type='text' id='title-input' />
+    </div>
+    <section class='main-content'>
+        <div class='tierlist'></div>
+        <div class='bottom-container'>
+            <div class='buttons-container'>
+                <div class='button'>
+                    <label for='load-img-input'>
+                        <img src='assets/imgs/plus.png' title='Add images'/>
+                    </label>
+                    <input id='load-img-input' type='file' accept='image/*' multiple/>
+                </div>
+                <div class='button'>
+                    <label for='reset-list-input'>
+                        <img src='assets/imgs/reset.png' title='Reset list'>
+                    </label>
+                    <input id='reset-list-input' type='button' />
+                </div>
+                <div class='button'>
+                    <label for='export-input'>
+                        <img src='assets/imgs/export.png' title='Export'>
+                    </label>
+                    <input id='export-input' type='button' />
+                </div>
+                <div class='button'>
+                    <label for='import-input'>
+                        <img src='assets/imgs/import.png' title='Import'/>
+                    </label>
+                    <input id='import-input' type='file' accept='.json' multiple/>
+                </div>
+                <div class='button'>
+                        <img id='trash' src='assets/imgs/trash_bin.png' title='Delete image (drag it over here)'></img>
+                </div>   
+            </div>
+            <p class='hint'>Faça o upload das suas imagens aqui.</p>
+            <section class='images'></section>
+        </div>
+    </section>
+  </body>
+</html>
