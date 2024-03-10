@@ -1,17 +1,36 @@
-import pandas as pd  # Importa a biblioteca pandas
+#Filtrar as datas de criação de registro, etapa matriculado, data na etapa há X dias
 
-# Carrega a planilha do Excel
-planilha = pd.read_excel("datausers24.xlsx", engine='openpyxl')
+import pandas as pd
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
-# Converte as colunas de datas de strings para o tipo de data
-planilha['Primeira Visita'] = pd.to_datetime(planilha['Primeira Visita'])
-planilha['Tornou-se Melhor Amigo'] = pd.to_datetime(planilha['Tornou-se Melhor Amigo'])
+# Carrega o arquivo Excel
+arquivo_excel = 'D:\\Downloads\\users.xlsx'  # Certifique-se de substituir 'seu_arquivo.xlsx' pelo caminho correto do seu arquivo
+df = pd.read_excel(arquivo_excel)
 
-# Calcula a diferença em dias entre as datas
-planilha['Dias até se tornar melhor amigo'] = (planilha['Tornou-se Melhor Amigo'] - planilha['Primeira Visita']).dt.days
+# Certifica-se de que as colunas de data são interpretadas como datetime
+df['inicio'] = pd.to_datetime(df['inicio'], errors='coerce')  # Converte para datetime, tratando erros
+df['fim'] = pd.to_datetime(df['fim'], errors='coerce')  # Converte para datetime, tratando erros
 
-# Calcula a média dos dias
-media_dias = planilha['Dias até se tornar melhor amigo'].mean()
+# Função para calcular a diferença entre as datas
+def calcula_diferenca(d1, d2):
+    # Verifica se d1 e d2 não são NaT (Not a Time - equivalente a NaN para datetimes)
+    if pd.notnull(d1) and pd.notnull(d2):
+        delta = relativedelta(d2, d1)
+        return delta.years, delta.months, delta.days
+    else:
+        return 0, 0, 0  # Retorna 0 anos, 0 meses, 0 dias se alguma das datas for NaT
 
-# Exibe a média
-print(f"Em média, demorou {media_dias:.2f} dias entre a primeira visita e se tornar melhor amigo.")
+# Calcula a diferença para cada linha usando os nomes das colunas diretamente
+df['Diferença'] = df.apply(lambda row: calcula_diferenca(row['inicio'], row['fim']), axis=1)
+
+# Converte as diferenças em dias para uma média geral
+dias_totais = df['Diferença'].apply(lambda x: x[0] * 365 + x[1] * 30 + x[2]).mean()
+
+# Converte a média de dias de volta para anos, meses, dias
+anos_media = dias_totais // 365
+dias_restantes = dias_totais % 365
+meses_media = dias_restantes // 30
+dias_media = dias_restantes % 30
+
+print(f'Média de tempo entre as datas: {int(anos_media)} anos, {int(meses_media)} meses e {int(dias_media)} dias.')
