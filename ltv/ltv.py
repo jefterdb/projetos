@@ -1,4 +1,4 @@
-#Filtrar as datas de criação de registro, etapa matriculado, data na etapa há X dias
+# Filtrar as datas de criação de registro, etapa matriculado, data na etapa há X dias
 
 import pandas as pd
 from datetime import datetime
