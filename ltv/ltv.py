@@ -5,7 +5,7 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 # Carrega o arquivo Excel
-arquivo_excel = 'D:\\Downloads\\users.xlsx'  # Certifique-se de substituir 'seu_arquivo.xlsx' pelo caminho correto do seu arquivo
+arquivo_excel = 'C:\\Users\\jefter.barony\\Downloads\\users.xlsx'  # Certifique-se de substituir 'seu_arquivo.xlsx' pelo caminho correto do seu arquivo
 df = pd.read_excel(arquivo_excel)
 
 # Certifica-se de que as colunas de data são interpretadas como datetime
