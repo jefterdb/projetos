@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferramenta de Sorteio</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+</head>
+<body>
+    <img src="">
+    <div class="app">
+        <select id="sortType" onchange="toggleInputType()">
+            <option value="name">Nome</option>
+            <option value="number">Número</option>
+        </select>
+        <input type="file" id="fileInput" accept=".txt, .xlsx">
+        <textarea id="entries" placeholder="Digite os itens aqui, um por linha ou separados por vírgula..."></textarea>
+        <input type="number" id="maxNumber" placeholder="Número máximo" style="display: none;" min="1">
+        <button id="drawButton">Sortear!</button>
+        <button id="resetButton">Resetar Sorteio</button>
+        <div id="result"></div>
+        <div id="drawnItems"></div>
+    </div>
+    
+    <div id="confirmationDialog" class="dialog-hidden">
+        <div class="dialog-content">
+            <p>Deseja manter os nomes já digitados?</p>
+            <button id="keepButton">Sim, manter</button>
+            <button id="discardButton">Descartar</button>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
