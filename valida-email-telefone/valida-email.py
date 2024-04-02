@@ -11,7 +11,7 @@ def validar_email(email):
         return "Válido"
 
 # Substitua 'caminho_para_seu_arquivo.xlsx' pelo caminho correto do seu arquivo
-caminho_arquivo_original = 'D:\\Download\\rd-email.xlsx'
+caminho_arquivo_original = 'C:\\Users\\jefter.barony\\Downloads\\rd-email.xlsx'
 # Gera o caminho para o novo arquivo no mesmo diretório do arquivo original
 diretorio, nome_arquivo = os.path.split(caminho_arquivo_original)
 nome_base, extensao = os.path.splitext(nome_arquivo)
