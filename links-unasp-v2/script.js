@@ -1,5 +1,3 @@
-// script.js
-
 let data;
 
 fetch('data.json')
