@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Links</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Gerador de Links Dinâmicos</h1>
+        <div class="form-group">
+            <label for="linkBase">Nível de Ensino</label>
+            <select id="linkBase" onchange="updateForm()">
+                <option value="" class="placeholder">Selecione</option>
+                <option value="Graduação">Graduação</option>
+                <option value="Pós-Graduação">Pós-Graduação</option>
+            </select>
+        </div>
+        <div id="formFields" style="display: none;">
+            <label>
+                <input type="checkbox" id="advancedOptions" onchange="toggleAdvancedOptions()"> Opções Avançadas
+            </label>
+            <div class="form-group advanced">
+                <label for="processoSeletivo">Número do Processo Seletivo</label>
+                <input type="text" id="processoSeletivo">
+            </div>
+            <div class="form-group">
+                <label for="modalidade">Modalidade</label>
+                <select id="modalidade" onchange="updateAreas()">
+                    <option value="" class="placeholder">Selecione</option>
+                    <option value="Presencial">Presencial</option>
+                    <option value="EAD">EAD</option>
+                </select>
+            </div>
+            <div class="form-group advanced">
+                <label for="area">Área</label>
+                <select id="area" onchange="updateCursos()">
+                    <option value="" class="placeholder">Selecione</option>
+                </select>
+            </div>
+            <div class="form-group advanced">
+                <label for="curso">Curso</label>
+                <select id="curso">
+                    <option value="" class="placeholder">Selecione</option>
+                </select>
+            </div>
+            <div class="form-group" id="campusGroup" style="display: none;">
+                <label for="unidade">Campus</label>
+                <select id="unidade">
+                    <option value="" class="placeholder">Selecione</option>
+                    <option value="1-1">São Paulo</option>
+                    <option value="1-2">Engenheiro Coelho</option>
+                    <option value="1-3">Hortolândia</option>
+                    <option value="1-4">EAD</option>
+                </select>
+            </div>
+            <div class="form-group advanced" id="formaIngressoGroup" style="display: none;">
+                <label for="formaIngresso">Forma de Ingresso</label>
+                <select id="formaIngresso">
+                    <option value="" class="placeholder">Selecione</option>
+                    <option value="Prova online">Prova online</option>
+                    <option value="Diplomados">Diplomados</option>
+                    <option value="Transferência">Transferência</option>
+                    <option value="ENEM">ENEM</option>
+                    <option value="Reingresso">Reingresso</option>
+                </select>
+            </div>
+            <div class="form-group" id="voucherGroup">
+                <label for="voucher">Voucher</label>
+                <input type="text" id="voucher">
+            </div>
+            <button type="button" onclick="generateLink()">Gerar Link</button>
+        </div>
+        <div id="linkResult" style="display: none;">
+            <h2>Link Gerado</h2>
+            <div class="link-container">
+                <input type="text" id="generatedLink" readonly>
+                <button type="button" onclick="copyLink()">
+                    <span class="iconify" data-icon="mdi:content-copy" data-inline="false"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+{
+    "Graduação": {
+      "Presencial": {
+        "Educação": [
+          "Administração"
+        ],
+        "Saúde": [
+          "Enfermagem",
+          "Medicina"
+        ]
+      },
+      "EAD": {
+        "Educação": [
+          "Administração"
+        ]
+      }
+    },
+    "Pós-Graduação": {
+      "Presencial": {
+        "Novos Negócios": [
+          "Arqueologia"
+        ],
+        "Bonde": [
+          "Direito Compliance",
+          "Engenharia Bim"
+        ]
+      },
+      "EAD": {
+        "Novos Negócios": [
+          "Arqueologia"
+        ],
+        "Bonde": [
+          "Direito Compliance",
+          "Engenharia Bim"
+        ]
+      }
+    }
+  }
+  
