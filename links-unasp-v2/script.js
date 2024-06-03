@@ -1,7 +1,6 @@
 document.getElementById('modalidadeBase').addEventListener('change', updateForm);
-document.getElementById('area').addEventListener('change', updateCursos);
-document.getElementById('curso').addEventListener('change', updateCampus);
 document.getElementById('modalidade').addEventListener('change', updateCampus);
+document.getElementById('campus').addEventListener('change', updateCursos);
 
 // Adiciona eventos de input para ocultar o link gerado ao modificar qualquer campo
 document.querySelectorAll('#formFields input, #formFields select').forEach(element => {
@@ -10,21 +9,45 @@ document.querySelectorAll('#formFields input, #formFields select').forEach(eleme
     });
 });
 
+const cursos = {
+    'Engenheiro Coelho': [
+        'Administração', 'Arquitetura e Urbanismo', 'Ciências Contábeis', 'Comunicação Social - Publicidade e Propaganda',
+        'Comunicação Social - Rádio e Televisão', 'Direito', 'Engenharia Agronômica', 'Engenharia Civil', 
+        'Engenharia de Computação', 'Jornalismo', 'Letras - Inglês', 'Letras - Português', 'Medicina Veterinária', 
+        'Música', 'Pedagogia', 'Psicologia', 'Tradutor e Intérprete'
+    ],
+    'Hortolândia': [
+        'Administração', 'Ciências Contábeis', 'Comunicação Social - Publicidade e Propaganda', 'Direito', 
+        'Educação Física', 'Enfermagem', 'Engenharia de Computação', 'Psicologia', 'Sistemas de Informação'
+    ],
+    'São Paulo': [
+        'Administração', 'Análise e Desenvolvimento de Sistemas', 'Arquitetura e Urbanismo', 'Ciências Contábeis',
+        'Comunicação Social - Publicidade e Propaganda', 'Direito', 'Educação Física', 'Enfermagem', 
+        'Engenharia de Computação', 'Fisioterapia', 'Nutrição', 'Pedagogia', 'Psicologia'
+    ],
+    'EAD': [
+        'Administração', 'Análise e Desenvolvimento de Sistemas', 'Banco de Dados', 'Ciências Biológicas - Licenciatura', 
+        'Ciências Contábeis', 'Ciências Sociais', 'Comércio Exterior', 'Comunicação Social - Publicidade e Propaganda', 
+        'Design Gráfico', 'Engenharia de Produção', 'Engenharia de Software', 'Física', 'Fotografia', 'Geografia', 
+        'Gestão Comercial', 'Gestão da Qualidade', 'Gestão da Tecnologia da informação', 'Gestão de Recursos Humanos', 
+        'Gestão Financeira', 'História', 'Jogos Digitais', 'Jornalismo', 'Letras - Inglês', 'Letras - Português', 
+        'Logística', 'Marketing', 'Matemática', 'Pedagogia', 'Processos Gerenciais', 'Produção Audiovisual', 
+        'Produção Multimídia', 'Química', 'Redes de Computadores', 'Secretariado', 'Sistemas de Informação', 'Serviço Social'
+    ]
+};
+
 function updateForm() {
     const modalidadeBase = document.getElementById('modalidadeBase').value;
     const formFields = document.getElementById('formFields');
-    const areaGroup = document.getElementById('areaGroup');
-    const formaIngressoGroup = document.getElementById('formaIngressoGroup');
     const psGroup = document.getElementById('psGroup');
     const modalidadeGroup = document.getElementById('modalidadeGroup');
     const cursoGroup = document.getElementById('cursoGroup');
     const campusGroup = document.getElementById('campusGroup');
+    const formaIngressoGroup = document.getElementById('formaIngressoGroup');
 
     if (modalidadeBase) {
         formFields.style.display = 'block';
         formaIngressoGroup.style.display = (modalidadeBase.includes('vestibular') || modalidadeBase.includes('teologia')) ? 'block' : 'none';
-        areaGroup.style.display = (modalidadeBase.includes('vestibular') || modalidadeBase.includes('teologia')) ? 'none' : 'block';
-
         if (modalidadeBase.includes('teologia')) {
             psGroup.style.display = 'none';
             modalidadeGroup.style.display = 'none';
@@ -36,52 +59,12 @@ function updateForm() {
             cursoGroup.style.display = 'block';
             campusGroup.style.display = 'block';
         }
-
-        const areas = modalidadeBase.includes('vestibular')
-            ? []
-            : ['Educação', 'Saúde', 'Novos Negócios', 'Bonde'];
-        document.getElementById('area').innerHTML = '<option value="">Selecione</option>';
-        areas.forEach(area => {
-            const option = document.createElement('option');
-            option.value = area;
-            option.textContent = area;
-            document.getElementById('area').appendChild(option);
-        });
     } else {
         formFields.style.display = 'none';
     }
 }
 
-function updateCursos() {
-    const area = document.getElementById('area').value;
-    const cursoSelect = document.getElementById('curso');
-    const modalidadeBase = document.getElementById('modalidadeBase').value;
-
-    let cursos = [];
-
-    if (modalidadeBase.includes('vestibular')) {
-        cursos = area === '' ? [] : ['Administração', 'Enfermagem', 'Medicina'];
-    } else if (modalidadeBase.includes('pos')) {
-        if (area === 'Novos Negócios') {
-            cursos = ['Arqueologia'];
-        } else if (area === 'Bonde') {
-            cursos = ['Direito Compliance', 'Engenharia Bim'];
-        }
-    }
-
-    cursoSelect.innerHTML = '<option value="">Selecione</option>';
-    cursos.forEach(curso => {
-        const option = document.createElement('option');
-        option.value = curso;
-        option.textContent = curso;
-        cursoSelect.appendChild(option);
-    });
-
-    updateCampus();
-}
-
 function updateCampus() {
-    const curso = document.getElementById('curso').value;
     const modalidade = document.getElementById('modalidade').value;
     const campusGroup = document.getElementById('campusGroup');
     const campusSelect = document.getElementById('campus');
@@ -89,29 +72,61 @@ function updateCampus() {
     if (modalidade === 'EAD') {
         campusGroup.style.display = 'none';
         campusSelect.innerHTML = '<option value="1-4">Educação a Distância</option>';
+        updateCursos();
     } else {
         campusGroup.style.display = 'block';
-
-        let unidades = [];
-
-        if (curso === 'Medicina' || curso === 'Administração') {
-            unidades = [{ value: '1-2', text: 'Engenheiro Coelho' }];
-        } else if (curso === 'Enfermagem') {
-            unidades = [{ value: '1-1', text: 'São Paulo' }];
-        } else if (curso === 'Direito Compliance') {
-            unidades = [{ value: '1-3', text: 'Hortolândia' }];
-        } else if (curso === 'Engenharia Bim' || curso === 'Arqueologia') {
-            unidades = [{ value: '1-4', text: 'EAD' }];
-        }
-
-        campusSelect.innerHTML = '<option value="">Selecione</option>';
-        unidades.forEach(unidade => {
-            const option = document.createElement('option');
-            option.value = unidade.value;
-            option.textContent = unidade.text;
-            campusSelect.appendChild(option);
-        });
+        campusSelect.innerHTML = `
+            <option value="">Selecione</option>
+            <option value="1-2">Engenheiro Coelho</option>
+            <option value="1-3">Hortolândia</option>
+            <option value="1-1">São Paulo</option>
+        `;
     }
+}
+
+function updateCursos() {
+    const modalidadeBase = document.getElementById('modalidadeBase').value;
+    const modalidade = document.getElementById('modalidade').value;
+    const campus = document.getElementById('campus').value;
+    const cursoSelect = document.getElementById('curso');
+
+    if (!modalidadeBase.includes('vestibular') && modalidade !== 'EAD' && !campus) {
+        cursoSelect.innerHTML = '<option value="">Selecione</option>';
+        return;
+    }
+
+    let cursosDisponiveis = [];
+
+    if (modalidadeBase.includes('vestibular') && modalidade === 'Presencial') {
+        switch (campus) {
+            case '1-2':
+                cursosDisponiveis = cursos['Engenheiro Coelho'];
+                break;
+            case '1-3':
+                cursosDisponiveis = cursos['Hortolândia'];
+                break;
+            case '1-1':
+                cursosDisponiveis = cursos['São Paulo'];
+                break;
+            default:
+                cursosDisponiveis = Object.values(cursos).flat();
+                break;
+        }
+    } else if (modalidade === 'EAD') {
+        cursosDisponiveis = cursos['EAD'];
+    } else {
+        cursosDisponiveis = Object.values(cursos).flat();
+    }
+
+    cursosDisponiveis = [...new Set(cursosDisponiveis)];
+
+    cursoSelect.innerHTML = '<option value="">Selecione</option>';
+    cursosDisponiveis.forEach(curso => {
+        const option = document.createElement('option');
+        option.value = curso;
+        option.textContent = curso;
+        cursoSelect.appendChild(option);
+    });
 }
 
 function generateLink() {
@@ -122,14 +137,21 @@ function generateLink() {
     const campus = modalidadeBase.includes('teologia') ? '1-2' : document.getElementById('campus').value;
     const formaIngresso = document.getElementById('formaIngresso').value;
     const voucher = document.getElementById('voucher').value;
+    const envioDireto = document.getElementById('envioDireto').checked;
 
-    let link = `${modalidadeBase}pIDPS=${processoSeletivo}&pModalidade=${modalidade}&curso=${encodeURIComponent(curso)}&campus=${campus}`;
-    if (modalidadeBase.includes('vestibular') || modalidadeBase.includes('teologia')) {
-        link += `&pFormaingresso=${encodeURIComponent(formaIngresso)}`;
+    let link = `${modalidadeBase.toLowerCase()}`;
+    
+    if (envioDireto) {
+        link += `passo/${processoSeletivo}`;
+    } else {
+        link += `idps=${processoSeletivo}&modalidade=${modalidade}&curso=${encodeURIComponent(curso)}&campus=${campus}`;
+        if (modalidadeBase.includes('vestibular') || modalidadeBase.includes('teologia')) {
+            link += `&formaingresso=${encodeURIComponent(formaIngresso)}`;
+        }
+        link += `&voucher=${encodeURIComponent(voucher)}`;
     }
-    link += `&voucher=${encodeURIComponent(voucher)}`;
 
-    document.getElementById('generatedLink').value = link;
+    document.getElementById('generatedLink').value = link.toLowerCase();
     document.getElementById('linkPopup').style.display = 'flex';
 }
 
@@ -143,3 +165,16 @@ function copyLink() {
 function closePopup() {
     document.getElementById('linkPopup').style.display = 'none';
 }
+
+function resetFields() {
+    document.getElementById('modalidadeBase').value = "";
+    document.getElementById('processoSeletivo').value = "";
+    document.getElementById('modalidade').value = "";
+    document.getElementById('campus').value = "";
+    document.getElementById('curso').innerHTML = '<option value="">Selecione</option>';
+    document.getElementById('formaIngresso').value = "";
+    document.getElementById('voucher').value = "";
+    document.getElementById('formFields').style.display = 'none';
+}
+
+document.querySelector('.new-link-button').addEventListener('click', resetFields);

@@ -19,14 +19,17 @@
                 <option value="">Selecione</option>
                 <option value="https://vestibular.unasp.br/?">Graduação</option>
                 <option value="https://pos.unasp.br/?">Pós-graduação</option>
-                <option value="https://pos.unasp.br/?">Mestrado</option>
-                <option value="https://teologia.unasp.br/?">Teologia</option>
+                <option value="https://mestrado.unasp.br/?">Mestrado</option>
+                <option value="https://vestibular.unasp.br/?">Teologia</option>
             </select>
         </div>
         <div id="formFields" style="display: none;">
             <div class="form-group" id="psGroup">
                 <label for="processoSeletivo">Número do PS</label>
                 <input type="text" id="processoSeletivo">
+                <label for="envioDireto" class="inline-label">
+                    <input type="checkbox" id="envioDireto"> Envio Direto
+                </label>
             </div>
             <div class="form-group" id="modalidadeGroup">
                 <label for="modalidade">Modalidade</label>
@@ -36,30 +39,20 @@
                     <option value="EAD">Educação a Distância</option>
                 </select>
             </div>
-            <div class="form-group" id="areaGroup">
-                <label for="area">Área</label>
-                <select id="area" onchange="updateCursos()">
-                    <option value="">Selecione</option>
-                    <option value="Educação">Educação</option>
-                    <option value="Saúde">Saúde</option>
-                    <option value="Novos Negócios">Novos Negócios</option>
-                    <option value="Bonde">Bonde</option>
-                </select>
-            </div>
-            <div class="form-group" id="cursoGroup">
-                <label for="curso">Curso</label>
-                <select id="curso" onchange="updateCampus()">
-                    <option value="">Selecione</option>
-                </select>
-            </div>
             <div class="form-group" id="campusGroup">
                 <label for="campus">Campus</label>
-                <select id="campus">
+                <select id="campus" onchange="updateCursos()">
                     <option value="">Selecione</option>
                     <option value="1-2">Engenheiro Coelho</option>
                     <option value="1-3">Hortolândia</option>
                     <option value="1-1">São Paulo</option>
                     <option value="1-4">Educação a Distância</option>
+                </select>
+            </div>
+            <div class="form-group" id="cursoGroup">
+                <label for="curso">Curso</label>
+                <select id="curso">
+                    <option value="">Selecione</option>
                 </select>
             </div>
             <div class="form-group" id="formaIngressoGroup" style="display: none;">

@@ -158,3 +158,16 @@ function copyLink() {
 function closePopup() {
     document.getElementById('linkPopup').style.display = 'none';
 }
+
+function resetFields() {
+    document.getElementById('modalidadeBase').value = "";
+    document.getElementById('processoSeletivo').value = "";
+    document.getElementById('modalidade').value = "";
+    document.getElementById('campus').value = "";
+    document.getElementById('curso').innerHTML = '<option value="">Selecione</option>';
+    document.getElementById('formaIngresso').value = "";
+    document.getElementById('voucher').value = "";
+    document.getElementById('formFields').style.display = 'none';
+}
+
+document.querySelector('.new-link-button').addEventListener('click', resetFields);
