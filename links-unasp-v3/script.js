@@ -33,6 +33,9 @@ const cursos = {
         'Gestão Financeira', 'História', 'Jogos Digitais', 'Jornalismo', 'Letras - Inglês', 'Letras - Português', 
         'Logística', 'Marketing', 'Matemática', 'Pedagogia', 'Processos Gerenciais', 'Produção Audiovisual', 
         'Produção Multimídia', 'Química', 'Redes de Computadores', 'Secretariado', 'Sistemas de Informação', 'Serviço Social'
+    ],
+    'Mestrado': [
+        'Educação', 'Saúde'
     ]
 };
 
@@ -49,15 +52,52 @@ function updateForm() {
         formFields.style.display = 'block';
         formaIngressoGroup.style.display = (modalidadeBase.includes('vestibular') || modalidadeBase.includes('teologia')) ? 'block' : 'none';
         if (modalidadeBase.includes('teologia')) {
-            psGroup.style.display = 'none';
+            psGroup.style.display = 'block';
             modalidadeGroup.style.display = 'none';
             cursoGroup.style.display = 'none';
             campusGroup.style.display = 'none';
+            document.getElementById('campus').innerHTML = '<option value="1-2">Engenheiro Coelho</option>';
+        } else if (modalidadeBase.includes('pos.unasp.br')) {
+            psGroup.style.display = 'block';
+            modalidadeGroup.style.display = 'block';
+            cursoGroup.style.display = 'block';
+            campusGroup.style.display = 'block';
+            document.getElementById('cursoGroup').innerHTML = `
+                <label for="curso">Curso</label>
+                <input type="text" id="curso">
+            `;
+            updateCampus();  // Atualiza a exibição do campo de campus e cursos
+        } else if (modalidadeBase.includes('mestrado.unasp.br')) {
+            psGroup.style.display = 'block';
+            modalidadeGroup.style.display = 'none';
+            cursoGroup.style.display = 'block';
+            campusGroup.style.display = 'block';
+            document.getElementById('campus').innerHTML = `
+                <option value="">Selecione</option>
+                <option value="1-2">Engenheiro Coelho</option>
+                <option value="1-1">São Paulo</option>
+            `;
+            document.getElementById('cursoGroup').innerHTML = `
+                <label for="curso">Curso</label>
+                <select id="curso">
+                    <option value="">Selecione</option>
+                    <option value="Educação">Educação</option>
+                    <option value="Saúde">Saúde</option>
+                </select>
+            `;
+            updateCursos();  // Atualiza a exibição do campo de campus e cursos
         } else {
             psGroup.style.display = 'block';
             modalidadeGroup.style.display = 'block';
             cursoGroup.style.display = 'block';
             campusGroup.style.display = 'block';
+            document.getElementById('cursoGroup').innerHTML = `
+                <label for="curso">Curso</label>
+                <select id="curso">
+                    <option value="">Selecione</option>
+                </select>
+            `;
+            updateCampus();  // Atualiza a exibição do campo de campus e cursos
         }
     } else {
         formFields.style.display = 'none';
@@ -68,10 +108,42 @@ function updateCampus() {
     const modalidade = document.getElementById('modalidade').value;
     const campusGroup = document.getElementById('campusGroup');
     const campusSelect = document.getElementById('campus');
+    const modalidadeBase = document.getElementById('modalidadeBase').value;
 
     if (modalidade === 'EAD') {
         campusGroup.style.display = 'none';
         campusSelect.innerHTML = '<option value="1-4">Educação a Distância</option>';
+        updateCursos();
+    } else if (modalidadeBase.includes('teologia')) {
+        campusGroup.style.display = 'none';
+        campusSelect.innerHTML = '<option value="1-2">Engenheiro Coelho</option>';
+    } else if (modalidadeBase.includes('vestibular') && modalidade === '') {
+        campusGroup.style.display = 'block';
+        campusSelect.innerHTML = `
+            <option value="">Selecione</option>
+            <option value="1-2">Engenheiro Coelho</option>
+            <option value="1-3">Hortolândia</option>
+            <option value="1-1">São Paulo</option>
+            <option value="1-4">Educação a Distância</option>
+        `;
+        updateCursos();
+    } else if (modalidadeBase.includes('mestrado.unasp.br')) {
+        campusGroup.style.display = 'block';
+        campusSelect.innerHTML = `
+            <option value="">Selecione</option>
+            <option value="1-2">Engenheiro Coelho</option>
+            <option value="1-1">São Paulo</option>
+        `;
+        updateCursos();
+    } else if (modalidadeBase.includes('pos.unasp.br') && modalidade === '') {
+        campusGroup.style.display = 'block';
+        campusSelect.innerHTML = `
+            <option value="">Selecione</option>
+            <option value="1-2">Engenheiro Coelho</option>
+            <option value="1-3">Hortolândia</option>
+            <option value="1-1">São Paulo</option>
+            <option value="1-4">Educação a Distância</option>
+        `;
         updateCursos();
     } else {
         campusGroup.style.display = 'block';
@@ -82,6 +154,7 @@ function updateCampus() {
             <option value="1-1">São Paulo</option>
         `;
     }
+    updateCursos();
 }
 
 function updateCursos() {
@@ -90,14 +163,36 @@ function updateCursos() {
     const campus = document.getElementById('campus').value;
     const cursoSelect = document.getElementById('curso');
 
-    if (!modalidadeBase.includes('vestibular') && modalidade !== 'EAD' && !campus) {
-        cursoSelect.innerHTML = '<option value="">Selecione</option>';
-        return;
-    }
-
     let cursosDisponiveis = [];
 
-    if (modalidadeBase.includes('vestibular') && modalidade === 'Presencial') {
+    if (modalidadeBase.includes('vestibular') && (modalidade === 'Presencial' || modalidade === '')) {
+        switch (campus) {
+            case '1-2':
+                cursosDisponiveis = cursos['Engenheiro Coelho'];
+                break;
+            case '1-3':
+                cursosDisponiveis = cursos['Hortolândia'];
+                break;
+            case '1-1':
+                cursosDisponiveis = cursos['São Paulo'];
+                break;
+            case '1-4':
+                cursosDisponiveis = cursos['EAD'];
+                break;
+            default:
+                cursosDisponiveis = [...cursos['Engenheiro Coelho'], ...cursos['Hortolândia'], ...cursos['São Paulo'], ...cursos['EAD']];
+                break;
+        }
+    } else if (modalidade === 'EAD') {
+        cursosDisponiveis = cursos['EAD'];
+    } else if (modalidadeBase.includes('mestrado.unasp.br')) {
+        cursosDisponiveis = cursos['Mestrado'];
+        if (campus === '1-2') {
+            cursosDisponiveis = ['Educação'];
+        } else if (campus === '1-1') {
+            cursosDisponiveis = ['Saúde'];
+        }
+    } else {
         switch (campus) {
             case '1-2':
                 cursosDisponiveis = cursos['Engenheiro Coelho'];
@@ -109,36 +204,34 @@ function updateCursos() {
                 cursosDisponiveis = cursos['São Paulo'];
                 break;
             default:
-                cursosDisponiveis = Object.values(cursos).flat();
+                cursosDisponiveis = [...cursos['Engenheiro Coelho'], ...cursos['Hortolândia'], ...cursos['São Paulo'], ...cursos['EAD']];
                 break;
         }
-    } else if (modalidade === 'EAD') {
-        cursosDisponiveis = cursos['EAD'];
-    } else {
-        cursosDisponiveis = Object.values(cursos).flat();
     }
 
-    cursosDisponiveis = [...new Set(cursosDisponiveis)];
+    cursosDisponiveis = [...new Set(cursosDisponiveis)].sort();
 
-    cursoSelect.innerHTML = '<option value="">Selecione</option>';
-    cursosDisponiveis.forEach(curso => {
-        const option = document.createElement('option');
-        option.value = curso;
-        option.textContent = curso;
-        cursoSelect.appendChild(option);
-    });
+    if (!modalidadeBase.includes('pos.unasp.br')) {
+        cursoSelect.innerHTML = '<option value="">Selecione</option>';
+        cursosDisponiveis.forEach(curso => {
+            const option = document.createElement('option');
+            option.value = curso;
+            option.textContent = curso;
+            cursoSelect.appendChild(option);
+        });
+    }
 }
 
 function generateLink() {
     const modalidadeBase = document.getElementById('modalidadeBase').value;
     const processoSeletivo = document.getElementById('processoSeletivo').value;
     const modalidade = document.getElementById('modalidade').value;
-    const curso = document.getElementById('curso').value;
+    const curso = modalidadeBase.includes('teologia') ? '' : document.getElementById('curso').value;
     const campus = modalidadeBase.includes('teologia') ? '1-2' : document.getElementById('campus').value;
     const formaIngresso = document.getElementById('formaIngresso').value;
     const voucher = document.getElementById('voucher').value;
 
-    let link = `${modalidadeBase.toLowerCase()}idps=${processoSeletivo}&modalidade=${modalidade}&curso=${encodeURIComponent(curso)}&campus=${campus}`;
+    let link = `${modalidadeBase.toLowerCase().replace('teologia', '')}idps=${processoSeletivo}&modalidade=${modalidade}&curso=${encodeURIComponent(curso)}&campus=${campus}`;
     if (modalidadeBase.includes('vestibular') || modalidadeBase.includes('teologia')) {
         link += `&formaingresso=${encodeURIComponent(formaIngresso)}`;
     }
