@@ -7,7 +7,10 @@ const tags = [
     "comercial_#grad*_#sp*_2024_#inverno*_#branding*",
     "comercial_#pos*_#tri*_2023_#m4*_#bolsas*",
     "comercial_#grad*_#ht*_2022_#m2*_#vitrine_unasp*",
-    "comercial_#grad*_#ec*_2023_#m1*_#inscricao*"
+    "comercial_#grad*_#ec*_2023_#m1*_#inscricao*",
+    "comercial_#grad*_#ec*_2023_#m1*_#ebook*",
+    "comercial_#pos*_#ec*_2024_#m2*_#bolsas*",
+    "comercial_#grad*_#sp*_2022_#verao*_#matricula_facil*"
 ];
 
 document.querySelectorAll('.filters select, .filters input').forEach(filter => {
@@ -19,8 +22,31 @@ document.getElementById('search-bar').addEventListener('input', () => {
     filterTags();
 });
 
+document.getElementById('filter-button').addEventListener('click', () => {
+    document.getElementById('filter-popup').style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
+});
+
+document.getElementById('overlay').addEventListener('click', () => {
+    closePopup();
+});
+
+document.getElementById('apply-filters').addEventListener('click', () => {
+    filterTags();
+    closePopup();
+});
+
+document.getElementById('clear-filters').addEventListener('click', () => {
+    clearFilters();
+    filterTags();
+});
+
+document.getElementById('close-popup').addEventListener('click', () => {
+    closePopup();
+});
+
 document.addEventListener('DOMContentLoaded', () => {
-    displayTags(tags.slice(-7)); // Mostrar as últimas 7 tags cadastradas ao carregar a página
+    displayTags(tags.slice(-10)); // Mostrar as últimas 10 tags cadastradas ao carregar a página
 });
 
 function clearFilters() {
@@ -95,4 +121,9 @@ function showCopyEffect(button) {
         effect.classList.remove('show');
         button.classList.remove('hidden');
     }, 2000);
+}
+
+function closePopup() {
+    document.getElementById('filter-popup').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
 }
