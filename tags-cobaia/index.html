@@ -16,17 +16,21 @@
         <div class="search-container">
             <span class="iconify search-icon" data-icon="mdi:magnify" data-inline="false"></span>
             <input type="text" id="search-bar" placeholder="Pesquisar tags...">
+            <div id="dropdown" class="dropdown">
+                <!-- Tags filtradas aparecerão aqui -->
+            </div>
         </div>
         <button id="filter-button" class="filter-button">
             <span class="iconify" data-icon="mdi:filter" data-inline="false"></span> Adicionar Filtros
         </button>
+        <button id="clear-filters-main" class="clear-filters">Limpar Filtros</button>
+        <hr class="hr-principal">
         <div class="content">
             <div class="results" id="results">
                 <!-- Tags filtradas aparecerão aqui -->
             </div>
         </div>
     </div>
-
     <div id="filter-popup" class="filter-popup">
         <div class="popup-header">
             <button id="close-popup" class="close-popup">
@@ -34,77 +38,113 @@
             </button>
         </div>
         <div class="filters">
-            <label for="nivel-ensino">Nível de Ensino</label>
-            <select id="nivel-ensino">
-                <option value="">Selecionar</option>
-                <option value="grad">Graduação</option>
-                <option value="pos">Pós-Graduação</option>
-                <option value="eb">Educação Básica</option>
-                <option value="cl">Cursos Livres</option>
-                <option value="next">Next</option>
-                <option value="mest">Mestrado</option>
-            </select>
-            <label for="campus">Campus</label>
-            <select id="campus">
-                <option value="">Selecionar</option>
-                <option value="ec">Engenheiro Coelho</option>
-                <option value="sp">São Paulo</option>
-                <option value="ht">Hortolândia</option>
-                <option value="ead">EAD</option>
-                <option value="tri">Trindade</option>
-            </select>
-            <label for="ano">Ano</label>
-            <input type="text" id="ano" placeholder="Ano (ex: 2024)">
-            <label for="modulo">Módulo</label>
-            <select id="modulo">
-                <option value="">Selecionar</option>
-                <option value="verao">Verão</option>
-                <option value="inverno">Inverno</option>
-                <option value="m1">M1</option>
-                <option value="m2">M2</option>
-                <option value="m3">M3</option>
-                <option value="m4">M4</option>
-            </select>
-            <label for="tipo-campanha">Tipo de Campanha</label>
-            <select id="tipo-campanha">
-                <option value="">Selecionar</option>
-                <option value="ebook">Ebook</option>
-                <option value="inscricao">Inscrição</option>
-                <option value="live">Live</option>
-                <option value="branding">Branding</option>
-                <option value="agendamento">Agendamento</option>
-                <option value="quiz">Quiz</option>
-                <option value="vestibular">Vestibular</option>
-                <option value="vocacional">Vocacional</option>
-                <option value="evento">Evento</option>
-                <option value="bolsas">Bolsas</option>
-                <option value="vitrine_unasp">Vitrine UNASP</option>
-                <option value="promo">Promo</option>
-                <option value="polos">Polos</option>
-                <option value="pensionato">Pensionato</option>
-                <option value="rmkt">RMKT</option>
-            </select>
-            <label for="promocionais">Promocionais</label>
-            <select id="promocionais">
-                <option value="">Selecionar</option>
-                <option value="matricula_facil">Matrícula Fácil</option>
-                <option value="indica">Indicação</option>
-                <option value="enem">ENEM</option>
-                <option value="segunda_graduacao">Segunda Graduação</option>
-                <option value="transferencia">Transferência</option>
-                <option value="50_mais">50+</option>
-                <option value="diploma_elite">Diploma Elite</option>
-                <option value="unasp_amarelo">UNASP Amarelo</option>
-                <option value="selecao_unasp">Seleção UNASP</option>
-                <option value="game_unasp">Game UNASP</option>
-                <option value="profissao_estudante">Profissão Estudante</option>
-                <option value="black_50">Black 50</option>
-                <option value="5_estrelas">5 Estrelas</option>
-                <option value="black_november">Black November</option>
-                <option value="quem_quer_ser_unasp">Quem Quer Ser UNASP</option>
-                <option value="diploma_de_elite">Diploma de Elite</option>
-                <option value="construindo_sua_carreira">Construindo Sua Carreira</option>
-            </select>
+            <div class="filter-group">
+                <div class="filter-label">
+                    <label for="nivel-ensino">Nível de Ensino</label>
+                </div>
+                <div class="filter-input">
+                    <select id="nivel-ensino">
+                        <option value="">Selecionar</option>
+                        <option value="grad">Graduação</option>
+                        <option value="pos">Pós-Graduação</option>
+                        <option value="eb">Educação Básica</option>
+                        <option value="cl">Cursos Livres</option>
+                        <option value="next">Next</option>
+                        <option value="mest">Mestrado</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-group">
+                <div class="filter-label">
+                    <label for="campus">Campus</label>
+                </div>
+                <div class="filter-input">
+                    <select id="campus">
+                        <option value="">Selecionar</option>
+                        <option value="ec">Engenheiro Coelho</option>
+                        <option value="sp">São Paulo</option>
+                        <option value="ht">Hortolândia</option>
+                        <option value="ead">EAD</option>
+                        <option value="tri">Trindade</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-group">
+                <div class="filter-label">
+                    <label for="ano">Ano</label>
+                </div>
+                <div class="filter-input">
+                    <input type="text" id="ano" placeholder="Ano (ex: 2024)">
+                </div>
+            </div>
+            <div class="filter-group">
+                <div class="filter-label">
+                    <label for="modulo">Módulo</label>
+                </div>
+                <div class="filter-input">
+                    <select id="modulo">
+                        <option value="">Selecionar</option>
+                        <option value="verao">Verão</option>
+                        <option value="inverno">Inverno</option>
+                        <option value="m1">M1</option>
+                        <option value="m2">M2</option>
+                        <option value="m3">M3</option>
+                        <option value="m4">M4</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-group">
+                <div class="filter-label">
+                    <label for="tipo-campanha">Tipo de Campanha</label>
+                </div>
+                <div class="filter-input">
+                    <select id="tipo-campanha">
+                        <option value="">Selecionar</option>
+                        <option value="ebook">Ebook</option>
+                        <option value="inscricao">Inscrição</option>
+                        <option value="live">Live</option>
+                        <option value="branding">Branding</option>
+                        <option value="agendamento">Agendamento</option>
+                        <option value="quiz">Quiz</option>
+                        <option value="vestibular">Vestibular</option>
+                        <option value="vocacional">Vocacional</option>
+                        <option value="evento">Evento</option>
+                        <option value="bolsas">Bolsas</option>
+                        <option value="vitrine_unasp">Vitrine UNASP</option>
+                        <option value="promo">Promo</option>
+                        <option value="polos">Polos</option>
+                        <option value="pensionato">Pensionato</option>
+                        <option value="rmkt">RMKT</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-group">
+                <div class="filter-label">
+                    <label for="promocionais">Promocionais</label>
+                </div>
+                <div class="filter-input">
+                    <select id="promocionais">
+                        <option value="">Selecionar</option>
+                        <option value="matricula_facil">Matrícula Fácil</option>
+                        <option value="indica">Indicação</option>
+                        <option value="enem">ENEM</option>
+                        <option value="segunda_graduacao">Segunda Graduação</option>
+                        <option value="transferencia">Transferência</option>
+                        <option value="50_mais">50+</option>
+                        <option value="diploma_elite">Diploma Elite</option>
+                        <option value="unasp_amarelo">UNASP Amarelo</option>
+                        <option value="selecao_unasp">Seleção UNASP</option>
+                        <option value="game_unasp">Game UNASP</option>
+                        <option value="profissao_estudante">Profissão Estudante</option>
+                        <option value="black_50">Black 50</option>
+                        <option value="5_estrelas">5 Estrelas</option>
+                        <option value="black_november">Black November</option>
+                        <option value="quem_quer_ser_unasp">Quem Quer Ser UNASP</option>
+                        <option value="diploma_de_elite">Diploma de Elite</option>
+                        <option value="construindo_sua_carreira">Construindo Sua Carreira</option>
+                    </select>
+                </div>
+            </div>
             <button id="apply-filters" class="apply-filters">Aplicar Filtros</button>
             <button id="clear-filters" class="clear-filters">Limpar Filtros</button>
         </div>
@@ -113,7 +153,7 @@
     <div id="overlay" class="overlay"></div>
 
     <div id="copy-popup" class="copy-popup">
-        <h2>Tag copiada</h2>
+        <h1>Tag copiada</h1>
         <p id="copy-text"></p>
     </div>
 

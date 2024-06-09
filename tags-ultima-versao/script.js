@@ -17,10 +17,7 @@ document.querySelectorAll('.filters select, .filters input').forEach(filter => {
     filter.addEventListener('change', filterTags);
 });
 
-document.getElementById('search-bar').addEventListener('input', () => {
-    clearFilters();
-    filterTags();
-});
+document.getElementById('search-bar').addEventListener('input', filterTags);
 
 document.getElementById('filter-button').addEventListener('click', () => {
     document.getElementById('filter-popup').style.display = 'block';
@@ -41,6 +38,11 @@ document.getElementById('clear-filters').addEventListener('click', () => {
     filterTags();
 });
 
+document.getElementById('clear-filters-main').addEventListener('click', () => {
+    clearFilters();
+    filterTags();
+});
+
 document.getElementById('close-popup').addEventListener('click', () => {
     closePopup();
 });
@@ -53,6 +55,7 @@ function clearFilters() {
     document.querySelectorAll('.filters select, .filters input').forEach(filter => {
         filter.value = '';
     });
+    document.getElementById('search-bar').value = ''; // Limpar o campo de busca
 }
 
 function filterTags() {
@@ -75,6 +78,25 @@ function filterTags() {
     });
 
     displayTags(filteredTags);
+
+    const dropdown = document.getElementById('dropdown');
+    if (searchQuery) {
+        dropdown.innerHTML = '';
+        dropdown.style.display = 'block';
+        filteredTags.forEach(tag => {
+            const dropdownItem = document.createElement('div');
+            dropdownItem.classList.add('dropdown-item');
+            dropdownItem.textContent = tag;
+            dropdownItem.onclick = () => {
+                document.getElementById('search-bar').value = tag;
+                dropdown.style.display = 'none';
+                filterTags();
+            };
+            dropdown.appendChild(dropdownItem);
+        });
+    } else {
+        dropdown.style.display = 'none';
+    }
 }
 
 function displayTags(tags) {
@@ -92,18 +114,17 @@ function displayTags(tags) {
         copyButton.innerHTML = '<span class="iconify" data-icon="mdi:content-copy" data-inline="false"></span> COPIAR';
         copyButton.onclick = () => {
             copyToClipboard(tag);
-            showCopyEffect(copyButton);
+            showCopyPopup(tag);
         };
-        
-        const copyEffect = document.createElement('span');
-        copyEffect.classList.add('copied-effect');
-        copyEffect.textContent = 'Copiado!';
         
         tagElement.appendChild(tagText);
         tagElement.appendChild(copyButton);
-        tagElement.appendChild(copyEffect);
         
         results.appendChild(tagElement);
+
+        const hrElement = document.createElement('hr');
+        hrElement.classList.add('hr-tag');
+        results.appendChild(hrElement);
     });
 }
 
@@ -113,13 +134,14 @@ function copyToClipboard(tag) {
     });
 }
 
-function showCopyEffect(button) {
-    const effect = button.nextElementSibling;
-    button.classList.add('hidden');
-    effect.classList.add('show');
+function showCopyPopup(tag) {
+    const copyPopup = document.getElementById('copy-popup');
+    document.getElementById('copy-text').textContent = tag;
+    copyPopup.style.display = 'block';
+    document.body.classList.add('blur-active');
     setTimeout(() => {
-        effect.classList.remove('show');
-        button.classList.remove('hidden');
+        copyPopup.style.display = 'none';
+        document.body.classList.remove('blur-active');
     }, 2000);
 }
 
