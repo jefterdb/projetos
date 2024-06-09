@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tags Comerciais</title>
+    <title>Cadastro de Tags</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles-cadastro.css">
     <script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
     <link rel="icon" href="favicon.png" type="image/png">
 </head>
 <body>
     <div class="container">
         <img class="logo-img" src="logo.png">
-        <h1>TAGS COMERCIAIS</h1>
+        <h1>Cadastro de Tags</h1>
         <div class="search-container">
             <span class="iconify search-icon" data-icon="mdi:magnify" data-inline="false"></span>
             <input type="text" id="search-bar" placeholder="Pesquisar tags...">
@@ -20,34 +20,21 @@
                 <!-- Tags filtradas aparecerão aqui -->
             </div>
         </div>
-        <button id="filter-button" class="filter-button">
-            <span class="iconify" data-icon="mdi:filter" data-inline="false"></span> Adicionar Filtros
+        <button id="add-tag-button" class="filter-button">
+            <span class="iconify" data-icon="mdi:plus" data-inline="false"></span> Adicionar Tag
         </button>
-        <button id="clear-filters-main" class="clear-filters">Limpar Filtros</button>
         <hr class="hr-principal">
         <div class="content">
             <div class="results" id="results">
-                <!-- Tags filtradas aparecerão aqui -->
+                <!-- Tags cadastradas aparecerão aqui -->
             </div>
         </div>
-    </div>
-    <div id="filter-popup" class="filter-popup">
-        <div class="popup-header">
-            <button id="close-popup" class="close-popup">
-                <span class="iconify" data-icon="mdi:close" data-inline="false"></span>
-            </button>
-        </div>
-        <div class="filters">
-            <!-- Filtros aqui -->
-        </div>
-        <button id="apply-filters" class="apply-filters">Aplicar Filtros</button>
-        <button id="clear-filters" class="clear-filters">Limpar Filtros</button>
     </div>
     <div id="overlay" class="overlay"></div>
     <div id="copy-popup" class="copy-popup">
         <h1>Tag copiada</h1>
         <p id="copy-text"></p>
     </div>
-    <script src="script.js"></script>
+    <script src="script-cadastro.js"></script>
 </body>
 </html>
