@@ -37,8 +37,11 @@ def process_phones(phone):
 def validate_data(file_path):
     df = pd.read_excel(file_path)
 
-    email_col = next((col for col in df.columns if 'email' in col.lower()), None)
-    phone_col = next((col for col in df.columns if 'telefone' in col.lower() or 'phone' in col.lower()), None)
+    email_keywords = ['email', 'e-mail', 'emails', 'e-mails']
+    phone_keywords = ['telefone', 'phone', 'tel', 'celular']
+
+    email_col = next((col for col in df.columns if any(keyword in col.lower() for keyword in email_keywords)), None)
+    phone_col = next((col for col in df.columns if any(keyword in col.lower() for keyword in phone_keywords)), None)
 
     if email_col:
         df['Processed Email'] = df[email_col].apply(process_emails)
@@ -57,5 +60,5 @@ def validate_data(file_path):
 
     print(f"Arquivo processado e salvo como {output_file_path}")
 
-file_path = 'C:\\Users\\jefter.barony\\Downloads\\validacao.xlsx'
+file_path = 'C:\\Users\\jefter.barony\\Downloads\\teologia-validacao.xlsx'
 validate_data(file_path)
