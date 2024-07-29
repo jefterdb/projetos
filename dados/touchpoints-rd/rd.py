@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from dateutil.relativedelta import relativedelta
 
 # Carrega o arquivo Excel
-df = pd.read_excel('D:\\Download\\rd.xlsx', sheet_name='rd')
+df = pd.read_excel('C:\\Users\\jefter.barony\\Downloads\\base-rd.xlsx', sheet_name='rd')
 
 # Calcula a média da coluna "Total de conversões"
 media_conversoes = df['Total de conversões'].mean()
