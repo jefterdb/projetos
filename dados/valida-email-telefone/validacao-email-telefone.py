@@ -1,20 +1,39 @@
+#Este código valida o email e o telefone, retira caracteres especiais do telefone.
+
 import pandas as pd
 import re
-import phonenumbers
 
 def is_valid_email(email):
     regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
-    if re.match(regex, email):
-        return True
-    else:
-        return False
+    return bool(re.match(regex, email))
+
+def clean_phone(phone):
+    return re.sub(r'[^\d]', '', phone)
+
+def is_sequential(phone):
+    return len(set(phone)) == 1
 
 def is_valid_phone(phone):
-    try:
-        phone_number = phonenumbers.parse(phone, "BR")
-        return phonenumbers.is_valid_number(phone_number)
-    except phonenumbers.NumberParseException:
+    phone = clean_phone(phone)
+    if len(phone) < 7 or phone.lstrip('0') == '' or is_sequential(phone):
         return False
+    return True
+
+def process_phone(phone):
+    if pd.isna(phone):
+        return ''
+    phones = re.split(r',|;|\s', str(phone))
+    for phone in phones:
+        cleaned_phone = clean_phone(phone.strip())
+        if cleaned_phone.startswith('0'):
+            cleaned_phone = cleaned_phone.lstrip('0')
+        if len(cleaned_phone) <= 11 and is_valid_phone(cleaned_phone):
+            return cleaned_phone
+        if len(cleaned_phone) > 11 and not cleaned_phone.startswith('55'):
+            return ''  # Número inválido
+        if is_valid_phone(cleaned_phone):
+            return cleaned_phone
+    return ''
 
 def process_emails(email):
     if pd.isna(email):
@@ -23,15 +42,6 @@ def process_emails(email):
     for email in emails:
         if is_valid_email(email.strip()):
             return email.strip()
-    return ''
-
-def process_phones(phone):
-    if pd.isna(phone):
-        return ''
-    phones = re.split(r',|;|\s', str(phone))
-    for phone in phones:
-        if is_valid_phone(phone.strip()):
-            return phone.strip()
     return ''
 
 def validate_data(file_path):
@@ -50,7 +60,7 @@ def validate_data(file_path):
         print("Coluna de email não encontrada.")
 
     if phone_col:
-        df['Processed Phone'] = df[phone_col].apply(process_phones)
+        df['Processed Phone'] = df[phone_col].apply(process_phone)
         df['Validação Telefones'] = df['Processed Phone'].apply(lambda x: 'ok' if is_valid_phone(x) else 'Erro')
     else:
         print("Coluna de telefone não encontrada.")
@@ -60,5 +70,5 @@ def validate_data(file_path):
 
     print(f"Arquivo processado e salvo como {output_file_path}")
 
-file_path = 'C:\\Users\\jefter.barony\\Downloads\\teologia-validacao.xlsx'
+file_path = 'C:\\Users\\jefter.barony\\Downloads\\validando.xlsx'
 validate_data(file_path)

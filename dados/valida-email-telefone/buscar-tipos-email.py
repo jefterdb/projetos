@@ -42,5 +42,5 @@ def extract_email_domains(file_path):
     print(f"A relação completa foi salva em {output_file_path}")
 
 # Exemplo de uso
-file_path = 'C:\\Users\\jefter.barony\\Downloads\\validacao.xlsx'  # Substitua pelo caminho do seu arquivo
+file_path = 'C:\\Users\\jefter.barony\\Downloads\\validando.xlsx'  # Substitua pelo caminho do seu arquivo
 extract_email_domains(file_path)
