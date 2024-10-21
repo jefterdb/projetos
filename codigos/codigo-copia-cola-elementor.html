@@ -1,0 +1,58 @@
+<html>
+  <style>
+    #Pcupom {
+      background-color: #6000e4;
+      color: #fff;
+      border-radius: 6px;
+      box-shadow: 0px 0px 1px 1px #292827;
+      border: none;
+      width: 100%;
+      z-index: 1;
+      transition: ease-in-out 0.1s;
+    }
+
+    #Pcupom:hover {
+      box-shadow: 0px 0px 3px 3px #6000e4;
+    }
+
+    #inputC {
+      width: 100%;
+      border: 1px solid #f5f5f4;
+      text-align: center;
+      color: #fff;
+      color: #000;
+      outline: none;
+    }
+
+    #cContainer {
+      display: grid;
+      grid-template-columns: 20% 80%;
+    }
+  </style>
+
+  <div id="cContainer">
+    <button id="Pcupom">COPIAR</button>
+    <input
+      type="text"
+      value="https://google.com"
+      id="inputC"
+      disabled="disabled"
+    />
+  </div>
+
+  <script>
+    document.querySelector("#inputC");
+    document.querySelector("#Pcupom").addEventListener("click", () => {
+      //   tire as 2 barrinhas para que o codigo seja lido e o audio interpretado
+      //   var audio = new Audio();
+      //   audio.src="aqui entra o audio da biblio do wp";
+      //   audio.play();
+      navigator.clipboard.writeText(document.querySelector("#inputC").value);
+      setTimeout(() => {
+        alert("copiado com sucesso!");
+      }, 500);
+      document.querySelector("#inputC").style.backgroundColor = "transparent";
+      document.querySelector("#inputC").style.color = "#292827";
+    });
+  </script>
+</html>
